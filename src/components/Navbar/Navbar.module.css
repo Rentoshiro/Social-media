@@ -1,0 +1,17 @@
+.sidebar {
+  grid-area: n;
+  background-color: red;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.item {
+  color: white;
+}
+
+.selectedItem {
+  color: gold;
+}
