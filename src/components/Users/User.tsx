@@ -3,6 +3,7 @@ import React from "react";
 import classes from "./user.module.css";
 import { NavLink } from "react-router-dom";
 import { userType } from "../../types/types";
+import { useSelector } from "react-redux";
 
 type UserProps = {
   user: userType;

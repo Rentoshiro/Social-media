@@ -1,6 +1,8 @@
 import React, { FC, useEffect } from "react";
 import Users from "./Users.tsx";
 import { userType } from "../../types/types.ts";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../redux/redux-store.ts";
 
 type UsersAPIComponentProps = {
   isAuth: boolean;
@@ -16,7 +18,7 @@ type UsersAPIComponentProps = {
     userName: string,
     followed: boolean
   ) => void;
-  follow: (userId: number) => void;
+  // follow: (userId: number) => void;
   unfollow: (userId: number) => void;
   toggleFolowing: any;
   searchByUserName: (newName: string) => void;
@@ -25,33 +27,45 @@ type UsersAPIComponentProps = {
   friends: boolean;
 };
 
-const UsersAPIComponent: FC<UsersAPIComponentProps> = (props) => {
-  useEffect(() => {
-    props.getUsers(
-      props.currentPage,
-      props.pageSize,
-      props.userName,
-      props.friends
+const UsersAPIComponent =
+  // : FC<UsersAPIComponentProps>
+  (props) => {
+    const currentPage = useSelector(
+      (state: AppStateType) => state.usersPage.currentPage
     );
-  }, [props.currentPage, props.userName, props.friends]);
-  return (
-    <>
-      {props.isFetching ? "" : "Is fetching"}
-      <Users
-        totalUsersCount={props.totalUsersCount}
-        pageSize={props.pageSize}
-        currentPage={props.currentPage}
-        setCurrentPage={props.setCurrentPage}
-        users={props.users}
-        follow={props.follow}
-        unfollow={props.unfollow}
-        toggleFollowing={props.toggleFolowing}
-        searchByUserName={props.searchByUserName}
-        isAuth={props.isAuth}
-        foolowedUsers={props.foolowedUsers}
-      />
-    </>
-  );
-};
+
+    const pageSize = useSelector(
+      (state: AppStateType) => state.usersPage.pageSize
+    );
+
+    const userName = useSelector(
+      (state: AppStateType) => state.usersPage.userName
+    );
+
+    const friends = useSelector(
+      (state: AppStateType) => state.usersPage.friends
+    );
+
+    const isFetching = useSelector(
+      (state: AppStateType) => state.usersPage.isFetching
+    );
+
+    useEffect(() => {
+      props.getUsers(currentPage, pageSize, userName, friends);
+    }, [currentPage, userName, friends]);
+
+    return (
+      <>
+        {isFetching ? "" : "Is fetching"}
+        <Users
+          setCurrentPage={props.setCurrentPage}
+          follow={props.follow}
+          unfollow={props.unfollow}
+          searchByUserName={props.searchByUserName}
+          foolowedUsers={props.foolowedUsers}
+        />
+      </>
+    );
+  };
 
 export default UsersAPIComponent;
