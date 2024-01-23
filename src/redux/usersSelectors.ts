@@ -31,3 +31,7 @@ export const getUserName = (state: AppStateType) => {
 export const getIsAuth = (state: AppStateType) => {
   return state.auth.isAuth;
 };
+
+export const getFollowed = (state: AppStateType) => {
+  return state.usersPage.friends;
+};

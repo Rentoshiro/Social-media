@@ -7,7 +7,8 @@ import {
   setCurentPageActionCreator,
   setTotalUsersCount,
   getUsersThunkCreator,
-  changeUserName,
+  searchByUserName,
+  foolowedUsers,
 } from "../../redux/usersReducers.ts";
 import {
   getUsers,
@@ -18,6 +19,7 @@ import {
   getToggleFolowing,
   getUserName,
   getIsAuth,
+  getFollowed,
 } from "../../redux/usersSelectors.ts";
 
 import { AppStateType } from "../../redux/redux-store.ts";
@@ -53,6 +55,7 @@ const mapStateToProps = (state: AppStateType) => {
     toggleFolowing: getToggleFolowing(state),
     userName: getUserName(state),
     isAuth: getIsAuth(state),
+    friends: getFollowed(state),
   };
 };
 
@@ -60,8 +63,9 @@ export default connect(mapStateToProps, {
   follow: follow,
   unfollow: unfollow,
   getUsers: getUsersThunkCreator,
-  changeUserName: changeUserName,
+  searchByUserName: searchByUserName,
   setTotalUsers: setTotalUsersCount,
   setUsers: setUsersActionCreator,
   setCurrentPage: setCurentPageActionCreator,
+  foolowedUsers: foolowedUsers,
 })(UsersAPIComponent);

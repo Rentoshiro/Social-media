@@ -10,18 +10,30 @@ type UsersAPIComponentProps = {
   currentPage: number;
   setCurrentPage: any;
   users: Array<userType>;
-  getUsers: (currentPage: number, pageSize: number, userName: string) => void;
+  getUsers: (
+    currentPage: number,
+    pageSize: number,
+    userName: string,
+    followed: boolean
+  ) => void;
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
   toggleFolowing: any;
-  changeUserName: (newName: string) => void;
+  searchByUserName: (newName: string) => void;
+  foolowedUsers: (friends: boolean | null) => void;
   userName: string;
+  friends: boolean;
 };
 
 const UsersAPIComponent: FC<UsersAPIComponentProps> = (props) => {
   useEffect(() => {
-    props.getUsers(props.currentPage, props.pageSize, props.userName);
-  }, [props.currentPage, props.userName]);
+    props.getUsers(
+      props.currentPage,
+      props.pageSize,
+      props.userName,
+      props.friends
+    );
+  }, [props.currentPage, props.userName, props.friends]);
   return (
     <>
       {props.isFetching ? "" : "Is fetching"}
@@ -34,8 +46,9 @@ const UsersAPIComponent: FC<UsersAPIComponentProps> = (props) => {
         follow={props.follow}
         unfollow={props.unfollow}
         toggleFollowing={props.toggleFolowing}
-        changeUserName={props.changeUserName}
+        searchByUserName={props.searchByUserName}
         isAuth={props.isAuth}
+        foolowedUsers={props.foolowedUsers}
       />
     </>
   );

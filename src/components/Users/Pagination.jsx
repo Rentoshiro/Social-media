@@ -7,7 +7,6 @@ export default function BasicPagination({
   pageSize,
   currentPage,
   setCurrentPage,
-  changeUserName,
 }) {
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
 

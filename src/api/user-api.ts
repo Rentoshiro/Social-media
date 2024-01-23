@@ -7,10 +7,15 @@ export const usersAPI = {
   unfollow(userId: number) {
     return instance.delete(`follow/${userId}`);
   },
-  getUsers(currentPage: number, pageSize: number, userName: string) {
+  getUsers(
+    currentPage: number,
+    pageSize: number,
+    userName: string,
+    friends: boolean
+  ) {
     return instance.get<GetItemsType>(
       `users?page=${currentPage}&count=${pageSize}
-        &term=${userName}
+        &term=${userName}&friend=${friends}
         `
     );
   },

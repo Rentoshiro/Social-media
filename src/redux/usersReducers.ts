@@ -12,6 +12,7 @@ let initialState = {
   isFetching: false,
   toggleFollowingInProgress: [] as Array<number>,
   userName: "",
+  friends: null as boolean | null,
 };
 
 type InitialStateType = typeof initialState;
@@ -73,12 +74,17 @@ const usersReducer = (
       return { ...state, userName: action.userName };
     }
 
+    case "FOLLOWED_USERS": {
+      return { ...state, friends: action.friends };
+    }
+
     default:
       return state;
   }
 };
 
 type ActionTypes =
+  | ReturnType<typeof foolowedUsers>
   | ReturnType<typeof followActionCreator>
   | ReturnType<typeof unfollowActionCreator>
   | ReturnType<typeof setUsersActionCreator>
@@ -86,9 +92,15 @@ type ActionTypes =
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof setToogleIsFetchingActionCreator>
   | ReturnType<typeof setToggleIsFollowingProgress>
-  | ReturnType<typeof changeUserName>;
+  | ReturnType<typeof searchByUserName>;
 
-export const changeUserName = (userName: string) =>
+export const foolowedUsers = (friends: boolean | null) =>
+  ({
+    type: "FOLLOWED_USERS",
+    friends,
+  } as const);
+
+export const searchByUserName = (userName: string) =>
   ({
     type: "SEARCH_BY_USER_NAME",
     userName,
@@ -146,10 +158,20 @@ export const setToggleIsFollowingProgress = (
 type thunkType = BaseThunkType<ActionTypes>;
 
 export const getUsersThunkCreator =
-  (currentPage: number, pageSize: number, userName: string): thunkType =>
+  (
+    currentPage: number,
+    pageSize: number,
+    userName: string,
+    friends: boolean
+  ): thunkType =>
   async (dispatch, getState) => {
     try {
-      const response = await usersAPI.getUsers(currentPage, pageSize, userName);
+      const response = await usersAPI.getUsers(
+        currentPage,
+        pageSize,
+        userName,
+        friends
+      );
       dispatch(setUsersActionCreator(response.data.items));
       dispatch(setTotalUsersCount(response.data.totalCount));
     } catch (error) {

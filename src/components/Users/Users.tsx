@@ -13,7 +13,8 @@ type UsersProps = {
   toggleFollowing: Array<number>;
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
-  changeUserName: (newName: string) => void;
+  searchByUserName: (newName: string) => void;
+  foolowedUsers: (followed: boolean | null) => void;
 };
 
 const Users: FC<UsersProps> = ({
@@ -25,28 +26,32 @@ const Users: FC<UsersProps> = ({
   toggleFollowing,
   follow,
   unfollow,
-  changeUserName,
+  searchByUserName,
   isAuth,
+  foolowedUsers,
 }) => {
   const name = useRef<HTMLTextAreaElement>(null);
 
   function handleUsers() {
     if (name.current) {
-      changeUserName(name.current.value);
+      searchByUserName(name.current.value);
     }
   }
 
   return (
     <div>
       <textarea ref={name}></textarea>
-      <button onClick={handleUsers}>Users</button>
+      <button onClick={handleUsers}>Find</button>
+
+      <button onClick={() => foolowedUsers(null)}>All</button>
+      <button onClick={() => foolowedUsers(true)}>Followed</button>
+      <button onClick={() => foolowedUsers(false)}>Unfollowed</button>
 
       <Pagination
         totalUsersCount={totalUsersCount}
         pageSize={pageSize}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        changeUserName={changeUserName}
       />
 
       {users.map((user) => (
