@@ -152,9 +152,6 @@ export const setToggleIsFollowingProgress = (
     userId,
   } as const);
 
-// type GetStateType = () => AppStateType;
-// type DispatchType = Dispatch<ActionTypes>;
-
 type thunkType = BaseThunkType<ActionTypes>;
 
 export const getUsersThunkCreator =
@@ -162,9 +159,9 @@ export const getUsersThunkCreator =
     currentPage: number,
     pageSize: number,
     userName: string,
-    friends: boolean
-  ): thunkType =>
-  async (dispatch, getState) => {
+    friends: boolean | null
+  ) =>
+  async (dispatch) => {
     try {
       const response = await usersAPI.getUsers(
         currentPage,
@@ -183,7 +180,7 @@ export const getUsersThunkCreator =
 
 export const follow =
   (userId: number): thunkType =>
-  async (dispatch, getState) => {
+  async (dispatch) => {
     try {
       dispatch(setToggleIsFollowingProgress(true, userId));
       const response = await usersAPI.follow(userId);

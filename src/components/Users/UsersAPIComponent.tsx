@@ -1,8 +1,9 @@
 import React, { FC, useEffect } from "react";
 import Users from "./Users.tsx";
 import { userType } from "../../types/types.ts";
-import { useSelector } from "react-redux";
 import { AppStateType } from "../../redux/redux-store.ts";
+import { useSelector, useDispatch } from "react-redux";
+import { getUsersThunkCreator } from "../../redux/usersReducers.ts";
 
 type UsersAPIComponentProps = {
   isAuth: boolean;
@@ -24,48 +25,40 @@ type UsersAPIComponentProps = {
   searchByUserName: (newName: string) => void;
   foolowedUsers: (friends: boolean | null) => void;
   userName: string;
-  friends: boolean;
+  friends: boolean | null;
 };
 
-const UsersAPIComponent =
-  // : FC<UsersAPIComponentProps>
-  (props) => {
-    const currentPage = useSelector(
-      (state: AppStateType) => state.usersPage.currentPage
-    );
+const UsersAPIComponent = () => {
+  const currentPage = useSelector(
+    (state: AppStateType) => state.usersPage.currentPage
+  );
 
-    const pageSize = useSelector(
-      (state: AppStateType) => state.usersPage.pageSize
-    );
+  const pageSize = useSelector(
+    (state: AppStateType) => state.usersPage.pageSize
+  );
 
-    const userName = useSelector(
-      (state: AppStateType) => state.usersPage.userName
-    );
+  const userName = useSelector(
+    (state: AppStateType) => state.usersPage.userName
+  );
 
-    const friends = useSelector(
-      (state: AppStateType) => state.usersPage.friends
-    );
+  const friends = useSelector((state: AppStateType) => state.usersPage.friends);
 
-    const isFetching = useSelector(
-      (state: AppStateType) => state.usersPage.isFetching
-    );
+  const isFetching = useSelector(
+    (state: AppStateType) => state.usersPage.isFetching
+  );
 
-    useEffect(() => {
-      props.getUsers(currentPage, pageSize, userName, friends);
-    }, [currentPage, userName, friends]);
+  const dispatch = useDispatch();
 
-    return (
-      <>
-        {isFetching ? "" : "Is fetching"}
-        <Users
-          setCurrentPage={props.setCurrentPage}
-          follow={props.follow}
-          unfollow={props.unfollow}
-          searchByUserName={props.searchByUserName}
-          foolowedUsers={props.foolowedUsers}
-        />
-      </>
-    );
-  };
+  useEffect(() => {
+    dispatch(getUsersThunkCreator(currentPage, pageSize, userName, friends));
+  }, [currentPage, userName, friends]);
+
+  return (
+    <>
+      {isFetching ? "" : "Is fetching"}
+      <Users />
+    </>
+  );
+};
 
 export default UsersAPIComponent;

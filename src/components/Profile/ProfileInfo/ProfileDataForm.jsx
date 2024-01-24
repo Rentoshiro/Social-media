@@ -1,7 +1,9 @@
 import Contacts from "./Contacts.tsx";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { saveProfile } from "../../../redux/profileReducer.ts";
 
-function ProfileDataForm({ profile, deactivateEditMode, saveProfile }) {
+function ProfileDataForm({ profile, deactivateEditMode }) {
   const [formValues, setFormValues] = useState({
     fullName: "",
     lookingForAJob: "",
@@ -40,9 +42,11 @@ function ProfileDataForm({ profile, deactivateEditMode, saveProfile }) {
     }));
   }
 
+  const dispatch = useDispatch();
+
   function handleSubmit(event) {
     event.preventDefault();
-    saveProfile(formValues);
+    dispatch(saveProfile(formValues));
     deactivateEditMode();
   }
 

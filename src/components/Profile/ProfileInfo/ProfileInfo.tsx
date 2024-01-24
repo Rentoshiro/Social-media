@@ -8,6 +8,9 @@ import ProfileStatus from "./ProfileStatus.tsx";
 import ProfileData from "./ProfileData.tsx";
 import ProfileDataForm from "./ProfileDataForm.jsx";
 import { profileType } from "../../../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../../../redux/redux-store.ts";
+import { updateImage } from "../../../redux/profileReducer.ts";
 
 interface ProfileInfoProps {
   profile: profileType;
@@ -18,16 +21,17 @@ interface ProfileInfoProps {
   saveProfile: (profile: profileType) => void;
 }
 
-function ProfileInfo({
-  profile,
-  status,
-  updateStatus,
-  updateImage,
-  isOwner,
-  saveProfile,
-}: ProfileInfoProps) {
+function ProfileInfo({ isOwner }) {
+  // : ProfileInfoProps
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [editMode, setEditMode] = useState(false);
+
+  const profile = useSelector(
+    (state: AppStateType) => state.profilePage.profile
+  );
+  const status = useSelector((state: AppStateType) => state.profilePage.status);
+
+  const dispatch = useDispatch();
 
   if (!profile) {
     return <div></div>;
@@ -40,7 +44,7 @@ function ProfileInfo({
       formData.append("image", selectedImage);
 
       if (formData) {
-        updateImage(formData);
+        dispatch(updateImage(formData));
       }
     }
   }
@@ -85,12 +89,11 @@ function ProfileInfo({
             <ProfileDataForm
               profile={profile}
               deactivateEditMode={deactivateEditMode}
-              saveProfile={saveProfile}
             />
           )}
         </div>
       </div>
-      <ProfileStatus status={status} updateStatus={updateStatus} />
+      <ProfileStatus status={status} />
     </div>
   );
 }

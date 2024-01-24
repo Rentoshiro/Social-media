@@ -1,13 +1,16 @@
 import React, { useState, ChangeEvent, KeyboardEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStatus } from "../../../redux/profileReducer.ts";
 
 type ProfileStatusProps = {
   status: string;
-  updateStatus: (status: string) => void;
+  // updateStatus: (status: string) => void;
 };
 
-function ProfileStatus({ status, updateStatus }: ProfileStatusProps) {
+function ProfileStatus({ status }: ProfileStatusProps) {
   const [editMode, setEditMode] = useState(false);
   const [editedStatus, setEditedStatus] = useState(status);
+  const dispatch = useDispatch();
 
   function activateEditMode() {
     setEditMode(true);
@@ -15,7 +18,7 @@ function ProfileStatus({ status, updateStatus }: ProfileStatusProps) {
 
   function deactivateEditMode() {
     setEditMode(false);
-    updateStatus(editedStatus);
+    dispatch(updateStatus(editedStatus));
   }
 
   const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
