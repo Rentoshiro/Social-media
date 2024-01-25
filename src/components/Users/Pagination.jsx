@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurentPageActionCreator } from "../../redux/usersReducers.ts";
 import { useLocation } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 export default function BasicPagination() {
   const totalUsersCount = useSelector(
