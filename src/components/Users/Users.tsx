@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppStateType } from "../../redux/redux-store.ts";
 import { searchByUserName, foolowedUsers } from "../../redux/usersReducers.ts";
 
-const Users = () => {
+const Users = ({ page }) => {
   const name = useRef<HTMLTextAreaElement>(null);
   const users = useSelector((state: AppStateType) => state.usersPage.users);
   const toggleFollowing = useSelector(
@@ -31,7 +31,7 @@ const Users = () => {
       <button onClick={() => dispatch(foolowedUsers(true))}>Followed</button>
       <button onClick={() => dispatch(foolowedUsers(false))}>Unfollowed</button>
 
-      <Pagination />
+      <Pagination page={page} />
 
       {users.map((user) => (
         <User

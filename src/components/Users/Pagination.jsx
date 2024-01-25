@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurentPageActionCreator } from "../../redux/usersReducers.ts";
+import { useLocation } from "react-router-dom";
 
 export default function BasicPagination() {
   const totalUsersCount = useSelector(
@@ -11,9 +12,16 @@ export default function BasicPagination() {
   const currentPage = useSelector((state) => state.usersPage.currentPage);
   const pageSize = useSelector((state) => state.usersPage.pageSize);
 
-  const pagesCount = Math.ceil(totalUsersCount / pageSize);
-
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const page = parseInt(searchParams.get("page"), 10) || 1;
+    dispatch(setCurentPageActionCreator(page));
+  }, [location.search, dispatch]);
+
+  const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   const handleChangePage = (event, value) => {
     dispatch(setCurentPageActionCreator(value));

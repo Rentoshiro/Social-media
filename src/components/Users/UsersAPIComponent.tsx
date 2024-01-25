@@ -4,6 +4,7 @@ import { userType } from "../../types/types.ts";
 import { AppStateType } from "../../redux/redux-store.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsersThunkCreator } from "../../redux/usersReducers.ts";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 type UsersAPIComponentProps = {
   isAuth: boolean;
@@ -19,7 +20,6 @@ type UsersAPIComponentProps = {
     userName: string,
     followed: boolean
   ) => void;
-  // follow: (userId: number) => void;
   unfollow: (userId: number) => void;
   toggleFolowing: any;
   searchByUserName: (newName: string) => void;
@@ -28,7 +28,7 @@ type UsersAPIComponentProps = {
   friends: boolean | null;
 };
 
-const UsersAPIComponent = () => {
+const UsersAPIComponent: FC<UsersAPIComponentProps> = () => {
   const currentPage = useSelector(
     (state: AppStateType) => state.usersPage.currentPage
   );
@@ -48,15 +48,22 @@ const UsersAPIComponent = () => {
   );
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams(location.search);
+  let parsed = Object.fromEntries([...searchParams]);
 
   useEffect(() => {
-    dispatch(getUsersThunkCreator(currentPage, pageSize, userName, friends));
-  }, [currentPage, userName, friends]);
+    dispatch(getUsersThunkCreator(parsed.page, pageSize, userName, friends));
+  }, [parsed.page, userName, friends]);
+
+  useEffect(() => {
+    setSearchParams(`?&page=${currentPage}`);
+  }, [currentPage, friends]);
 
   return (
     <>
       {isFetching ? "" : "Is fetching"}
-      <Users />
+      <Users page={parsed.page} />
     </>
   );
 };

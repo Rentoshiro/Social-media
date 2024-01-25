@@ -80,6 +80,7 @@ function ProfileInfo({ isOwner }) {
           />
         )}
         <div>
+          Status: <ProfileStatus status={status} />
           {!editMode ? (
             <ProfileData
               profile={profile}
@@ -93,7 +94,6 @@ function ProfileInfo({ isOwner }) {
           )}
         </div>
       </div>
-      <ProfileStatus status={status} />
     </div>
   );
 }
