@@ -25,7 +25,12 @@ function Navbar() {
   }, [location.pathname]);
 
   return (
-    <nav className={classes.sidebar}>
+    <nav
+      style={{
+        height: "auto",
+      }}
+      className={classes.sidebar}
+    >
       <div>
         <NavLink
           to="/profile"

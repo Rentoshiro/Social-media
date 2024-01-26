@@ -4,6 +4,7 @@ import classes from "../Dialogs/Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem.tsx";
 import Message from "./Message.tsx";
 import AddMessageForm from "./AddMessageForm.jsx";
+import { useState } from "react";
 
 type DialogsProps = {
   messagesData: {
@@ -16,75 +17,90 @@ type DialogsProps = {
   isAuth: boolean;
 };
 
-const ws = new WebSocket(
-  "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
-);
-
 const Dialogs =
   // : React.FC<DialogsProps>
   ({ messagesData, updateNewMessageBody, sendMessage, isAuth }) => {
-    const text = useRef<HTMLTextAreaElement>(null);
-
-    const handleClick = () => {
-      if (text.current) {
-        sendMessage(text);
-      }
-    };
-
-    const handleChange = () => {
-      if (text.current) {
-        updateNewMessageBody(text);
-      }
-    };
-    const messages = [1, 2, 3, 4];
+    const [messages, setMessages] = useState<any>([]);
+    const [readyStatus, setReadyStatus] = useState();
+    const messagesContainerRef = useRef(null);
+    const ws = useRef(null);
 
     useEffect(() => {
-      if (ws.readyState === WebSocket.OPEN) {
-      }
-    }, [ws.readyState]);
+      ws.current = new WebSocket(
+        "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
+      );
 
-    ws.addEventListener("message", (event) => {
-      const receivedMessage = JSON.parse(event.data);
-      console.log("Received message:", receivedMessage);
-    });
+      if (ws.current) {
+        ws.current.addEventListener("message", (e) => {
+          if (ws.current.readyState === WebSocket.OPEN) {
+            const newMessages = JSON.parse(e.data);
+            setMessages((prevMessages) => [...prevMessages, ...newMessages]);
+          }
+          setReadyStatus("ready");
+        });
+      }
+
+      return () => {
+        if (ws.current) {
+          ws.current.close();
+        }
+      };
+    }, []);
+
+    useEffect(() => {
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTop =
+          messagesContainerRef.current.scrollHeight;
+      }
+    }, [messages]);
+
+    function sendMessage(message) {
+      if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+        ws.current.send(message);
+      }
+    }
 
     return (
       <>
-        <div style={{ height: "500px", overflow: "auto" }}>
-          {messages.map((m) => (
-            <Message key={m} />
-          ))}
-          {messages.map((m) => (
-            <Message key={m} />
-          ))}
-          {messages.map((m) => (
-            <Message key={m} />
-          ))}
-
-          {/* <div className={classes.dialogs}>
-        <div className={classes.dialogsItems}>
-          {messagesData.nameData.map((item) => (
-            <DialogItem key={item.id} name={item.name} id={item.id} />
-          ))}
-        </div>
-        <div className={classes.messages}>
-          {messagesData.dialogsData.map((message) => (
-            <Message key={message.id} message={message.message} />
-          ))}
-        </div>
-      </div>
-      <textarea
-        ref={text}
-        onChange={handleChange}
-        value={messagesData.dialogText}
-      />
-      <button onClick={handleClick}>Click me</button> */}
+        <div
+          style={{
+            height: "82vh",
+            overflow: "auto",
+            scrollBehavior: "smooth",
+          }}
+          ref={messagesContainerRef}
+        >
+          {messages &&
+            messages.map((m) => (
+              <Message url={m.photo} author={m.userName} text={m.message} />
+            ))}
         </div>
         <div>
-          <AddMessageForm />
+          <AddMessageForm sendMessage={sendMessage} readyStatus={readyStatus} />
         </div>
       </>
     );
   };
 
 export default Dialogs;
+
+{
+  /* <div className={classes.dialogs}>
+<div className={classes.dialogsItems}>
+  {messagesData.nameData.map((item) => (
+    <DialogItem key={item.id} name={item.name} id={item.id} />
+  ))}
+</div>
+<div className={classes.messages}>
+  {messagesData.dialogsData.map((message) => (
+    <Message key={message.id} message={message.message} />
+  ))}
+</div>
+</div>
+<textarea
+ref={text}
+onChange={handleChange}
+value={messagesData.dialogText}
+/>
+<button onClick={handleClick}>Click me</button> */
+}

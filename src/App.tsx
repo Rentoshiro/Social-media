@@ -45,6 +45,13 @@ const App: React.FC<PropsType> = (props) => {
     color: theme.palette.text.secondary,
   }));
 
+  const Item1 = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(0.2),
+    color: theme.palette.text.secondary,
+  }));
+
   return (
     <>
       <BrowserRouter>
@@ -65,7 +72,7 @@ const App: React.FC<PropsType> = (props) => {
               </Item>
             </Grid>
             <Grid item xs={9}>
-              <Item>
+              <Item1>
                 <Routes>
                   <Route
                     path="/"
@@ -82,7 +89,7 @@ const App: React.FC<PropsType> = (props) => {
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/login" element={<LoginContainer />} />
                 </Routes>
-              </Item>
+              </Item1>
             </Grid>
           </Grid>
         </Box>
