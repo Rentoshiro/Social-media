@@ -13,23 +13,13 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { AppStateType } from "./redux/redux-store";
+import { AppStateType } from "./redux/redux-store.ts";
 import Grid from "@mui/material/Unstable_Grid2";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
-type MapStateToPropsType = {
-  initialized: boolean;
-};
-
-type MapDispatchToPropsType = {
-  initializedApp: (isInitialized: boolean) => void;
-};
-
-type PropsType = MapStateToPropsType & MapDispatchToPropsType;
-
-const App: React.FC<PropsType> = (props) => {
+const App = (props) => {
   useEffect(() => {
     props.initializedApp(true);
   }, []);
@@ -116,7 +106,7 @@ const App: React.FC<PropsType> = (props) => {
 //     </div>
 //   </div>
 // </BrowserRouter>
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+const mapStateToProps = (state) => {
   return {
     initialized: state.initializedApp.initialized,
   };
