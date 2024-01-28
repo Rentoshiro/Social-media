@@ -1,4 +1,3 @@
-import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music.jsx";
