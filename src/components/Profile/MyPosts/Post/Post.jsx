@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import classes from "../../../Profile/MyPosts/Post/Post.module.css";
-import avatarImg from "../../../../images/fox.jpg";
 import Button from "@mui/material/Button";
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import { Button } from "@mui/material";
+import DeleteForeverSharpIcon from "@mui/icons-material/DeleteForeverSharp";
+import EditSharpIcon from "@mui/icons-material/EditSharp";
+import SaveSharpIcon from "@mui/icons-material/SaveSharp";
+import BackspaceSharpIcon from "@mui/icons-material/BackspaceSharp";
 
 const Post = ({ message, like, postId, deletePost, editPost }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -25,12 +26,17 @@ const Post = ({ message, like, postId, deletePost, editPost }) => {
 
   return (
     <div className={classes.item}>
-      <img src={avatarImg} alt="Avatar" />
       {isEditing ? (
         <input
           type="text"
           value={editedMessage}
           onChange={(e) => setEditedMessage(e.target.value)}
+          style={{
+            backgroundColor: "rgba(169, 169, 169, 0.3)",
+            padding: "8px",
+            borderRadius: "10px",
+            width: "auto",
+          }}
         />
       ) : (
         <div>{message}</div>
@@ -38,21 +44,23 @@ const Post = ({ message, like, postId, deletePost, editPost }) => {
       <div>Likes: {like}</div>
       {isEditing ? (
         <>
-          <button onClick={handleSaveEdit}>Save</button>
-          <button onClick={handleCancelEdit}>Cancel</button>
+          <Button
+            onClick={handleSaveEdit}
+            startIcon={<SaveSharpIcon />}
+          ></Button>
+          <Button
+            onClick={handleCancelEdit}
+            startIcon={<BackspaceSharpIcon />}
+          ></Button>
         </>
       ) : (
-        <button onClick={handleEdit}>Edit</button>
+        <Button onClick={handleEdit} startIcon={<EditSharpIcon />}></Button>
       )}
-      {/* <button onClick={() => deletePost(postId)}>Delete</button> */}
-      {/* <Button
-        variant="outlined"
-        startIcon={<DeleteIcon />}
+
+      <Button
         onClick={() => deletePost(postId)}
-      >
-        Delete
-      </Button> */}
-      {/* <Button variant="contained">Edit Profile</Button> */}
+        startIcon={<DeleteForeverSharpIcon />}
+      ></Button>
     </div>
   );
 };

@@ -7,6 +7,8 @@ import ProfileDataForm from "./ProfileDataForm";
 import { useDispatch, useSelector } from "react-redux";
 import { updateImage } from "../../../redux/profileReducer.ts";
 import MyPostsContainer from "../MyPosts/MyPostsContainer.jsx";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Button from "@mui/material/Button";
 
 function ProfileInfo({ isOwner }) {
   const fileInputRef = useRef(null);

@@ -3,6 +3,8 @@ import Post from "./Post/Post";
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function MyPosts({ updateNewPostText, addPost, posts, deletePost, editPost }) {
   const { userId } = useParams();
@@ -39,8 +41,14 @@ function MyPosts({ updateNewPostText, addPost, posts, deletePost, editPost }) {
   return (
     <div>
       {!userId && <div style={profileDataStyle}>My posts</div>}
+      <div style={{ color: "#A81E1E" }}>{errorMessage}</div>
       {!userId && (
-        <div className="postsBlock">
+        <div
+          style={{
+            marginBottom: "30px",
+          }}
+          className="postsBlock"
+        >
           <div>
             <textarea
               ref={text}
@@ -49,16 +57,18 @@ function MyPosts({ updateNewPostText, addPost, posts, deletePost, editPost }) {
                 backgroundColor: "rgba(169, 169, 169, 0.3)",
                 padding: "8px",
                 borderRadius: "10px",
-                width: "auto",
+                width: "500px",
                 resize: "none",
               }}
               placeholder="New post..."
             />
           </div>
-          <button onClick={handleClick}>Add post</button>
+          <Button onClick={handleClick} variant="contained" size="small">
+            Add post
+          </Button>
         </div>
       )}
-      {errorMessage}
+
       {posts.posts.map((message) => (
         <Post
           key={message.id}

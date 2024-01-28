@@ -12,8 +12,8 @@ const EDIT_POST = "EDIT_POST";
 
 let initialState = {
   posts: [
-    { id: 1, message: "Hi number 1", likesCount: 11 },
-    { id: 2, message: "Hi number 2", likesCount: 12 },
+    { id: 1, message: "My first post", likesCount: 0 },
+    { id: 2, message: "I am looking for a job", likesCount: 1 },
   ] as Array<postType>,
   newPostText: "new Post",
   profile: null as profileType | null,
