@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-//@ts-ignore
-import classes from "../Dialogs.module.css";
+import classes from "./Dialogs.module.css";
 
 function Message({ url, author, text }) {
   return (

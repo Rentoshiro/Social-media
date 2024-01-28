@@ -1,18 +1,16 @@
 import React, { useRef, FC } from "react";
-import Pagination from "./Pagination";
-import User from "./User.tsx";
-import { userType } from "../../types/types";
+import Pagination from "./Pagination.jsx";
+import User from "./User.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { AppStateType } from "../../redux/redux-store.ts";
 import { searchByUserName, foolowedUsers } from "../../redux/usersReducers.ts";
 
 const Users = ({ page }) => {
-  const name = useRef<HTMLTextAreaElement>(null);
-  const users = useSelector((state: AppStateType) => state.usersPage.users);
+  const name = useRef(null);
+  const users = useSelector((state) => state.usersPage.users);
   const toggleFollowing = useSelector(
-    (state: AppStateType) => state.usersPage.toggleFollowingInProgress
+    (state) => state.usersPage.toggleFollowingInProgress
   );
-  const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
+  const isAuth = useSelector((state) => state.auth.isAuth);
 
   const dispatch = useDispatch();
 

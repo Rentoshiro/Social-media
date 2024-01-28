@@ -1,20 +1,22 @@
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar.tsx";
-import News from "./components/News/News.tsx";
+import Navbar from "./components/Navbar/Navbar";
+import News from "./components/News/News";
 import Music from "./components/Music/Music.jsx";
-import Settings from "./components/Settings/Settings.tsx";
-import DialogsContainer from "./components/Dialogs/DialogsContainer.tsx";
-import UsersContainer from "./components/Users/UsersAPIComponent.tsx";
-import ProfileContainer from "./components/Profile/Profile.tsx";
-import HeaderContainer from "./components/Header/HeaderContainer.tsx";
-import LoginContainer from "./components/Login/LoginContainer.tsx";
+import Settings from "./components/Settings/Settings";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersAPIComponent";
+import ProfileContainer from "./components/Profile/ProfileContainer.jsx";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginContainer from "./components/Login/Login.jsx";
 import { initializedApp } from "./redux/appReducer.ts";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { AppStateType } from "./redux/redux-store.ts";
+import { withAuthRedirect } from "./hoc/AuthRedirect.jsx";
+
 import Grid from "@mui/material/Unstable_Grid2";
+import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -25,22 +27,20 @@ const App = (props) => {
   }, []);
 
   if (!props.initialized) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(0.2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
-
-  const Item1 = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(0.2),
-    color: theme.palette.text.secondary,
-  }));
+  const Item = styled(Paper)(({}) => ({}));
 
   return (
     <>
@@ -62,7 +62,7 @@ const App = (props) => {
               </Item>
             </Grid>
             <Grid item xs={9}>
-              <Item1>
+              <Item>
                 <Routes>
                   <Route
                     path="/"
@@ -79,7 +79,7 @@ const App = (props) => {
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/login" element={<LoginContainer />} />
                 </Routes>
-              </Item1>
+              </Item>
             </Grid>
           </Grid>
         </Box>
@@ -88,24 +88,6 @@ const App = (props) => {
   );
 };
 
-// <BrowserRouter>
-//   <div className="app-wrapper">
-//    <HeaderContainer />
-//     <Navbar />
-//     <div className="app-wrapper-content">
-//       <Routes>
-//         <Route path="/" element={<Navigate to="/profile" replace />} />
-//         <Route path="/profile/:userId?" element={<ProfileContainer />} />
-//         <Route path="/dialogs/*" element={<DialogsContainer />} />
-//         <Route path="/users" element={<UsersContainer />} />
-//         <Route path="/news" element={<News />} />
-//         <Route path="/music" element={<Music />} />
-//         <Route path="/settings" element={<Settings />} />
-//         <Route path="/login" element={<LoginContainer />} />
-//       </Routes>
-//     </div>
-//   </div>
-// </BrowserRouter>
 const mapStateToProps = (state) => {
   return {
     initialized: state.initializedApp.initialized,

@@ -1,4 +1,4 @@
-import { instance } from "../api/api.ts";
+import { instance } from "./api";
 
 export const securityAPI = {
   security() {

@@ -2,12 +2,7 @@ import React, { useState, ChangeEvent, KeyboardEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStatus } from "../../../redux/profileReducer.ts";
 
-type ProfileStatusProps = {
-  status: string;
-  // updateStatus: (status: string) => void;
-};
-
-function ProfileStatus({ status }: ProfileStatusProps) {
+function ProfileStatus({ status }) {
   const [editMode, setEditMode] = useState(false);
   const [editedStatus, setEditedStatus] = useState(status);
   const dispatch = useDispatch();
@@ -21,26 +16,39 @@ function ProfileStatus({ status }: ProfileStatusProps) {
     dispatch(updateStatus(editedStatus));
   }
 
-  const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onStatusChange = (e) => {
     setEditedStatus(e.target.value);
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       deactivateEditMode();
     }
   };
 
   return (
-    <>
+    <div>
       {!editMode && (
-        <div>
+        <div
+          style={{
+            backgroundColor: "rgba(169, 169, 169, 0.3)",
+            padding: "10px",
+            borderRadius: "20px",
+            width: "500px",
+          }}
+        >
           <span onClick={activateEditMode}>{status || "No status yet"}</span>
         </div>
       )}
       {editMode && (
         <div>
           <input
+            style={{
+              backgroundColor: "rgba(169, 169, 169, 0.3)",
+              padding: "10px",
+              borderRadius: "20px",
+              width: "500px",
+            }}
             value={editedStatus}
             onKeyDown={handleKeyDown}
             onBlur={deactivateEditMode}
@@ -49,7 +57,7 @@ function ProfileStatus({ status }: ProfileStatusProps) {
           />
         </div>
       )}
-    </>
+    </div>
   );
 }
 

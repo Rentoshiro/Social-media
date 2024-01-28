@@ -1,7 +1,8 @@
-import Contacts from "./Contacts.tsx";
+import Contacts from "./Contacts";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { saveProfile } from "../../../redux/profileReducer.ts";
+import { Button } from "@mui/material";
 
 function ProfileDataForm({ profile, deactivateEditMode }) {
   const [formValues, setFormValues] = useState({
@@ -50,20 +51,43 @@ function ProfileDataForm({ profile, deactivateEditMode }) {
     deactivateEditMode();
   }
 
+  const profileDataStyle = {
+    border: "1px solid #ddd",
+    padding: "10px",
+    borderRadius: "8px",
+    marginBottom: "10px",
+    width: "500px",
+  };
+
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <button onClick={handleSubmit}>Save Changes</button>
-        <div>Name: {profile.fullName}</div>
+      <div style={profileDataStyle}>
+        <Button
+          style={{ left: "230px", top: "-90px" }}
+          variant="contained"
+          onClick={handleSubmit}
+        >
+          Save Changes
+        </Button>
+        <div>
+          {" "}
+          <span style={{ fontWeight: "bold" }}>Name:</span> {profile.fullName}
+        </div>
         <input
           id="fullName"
           name="fullName"
           placeholder="Full Name"
           value={formValues.fullName}
           onChange={(event) => handleValues("fullName", event.target.value)}
+          style={{
+            backgroundColor: "rgba(169, 169, 169, 0.3)",
+            padding: "8px",
+            borderRadius: "10px",
+            width: "auto",
+          }}
         ></input>
         <div>
-          Looking for a job:
+          <span style={{ fontWeight: "bold" }}>Looking for a job:</span>
           <input
             id="checkbox"
             type="checkbox"
@@ -73,7 +97,13 @@ function ProfileDataForm({ profile, deactivateEditMode }) {
             }
           />
         </div>
-        <div>My professional skills: {profile.lookingForAJobDescription}</div>
+        <div>
+          {" "}
+          <span style={{ fontWeight: "bold" }}>
+            My professional skills:
+          </span>{" "}
+          {profile.lookingForAJobDescription}
+        </div>
         <textarea
           id="lookingForAJobDescription"
           placeholder="My professional skills"
@@ -81,16 +111,34 @@ function ProfileDataForm({ profile, deactivateEditMode }) {
             handleValues("lookingForAJobDescription", event.target.value)
           }
           value={formValues.lookingForAJobDescription}
+          style={{
+            backgroundColor: "rgba(169, 169, 169, 0.3)",
+            padding: "8px",
+            borderRadius: "10px",
+            width: "auto",
+            resize: "none",
+          }}
         ></textarea>
-        <div>About me: {profile.aboutMe}</div>
+        <div>
+          {" "}
+          <span style={{ fontWeight: "bold" }}>About me: </span>{" "}
+          {profile.aboutMe}
+        </div>
         <textarea
           id="aboutMe"
           placeholder="About me"
           onChange={(event) => handleValues("aboutMe", event.target.value)}
           value={formValues.aboutMe}
+          style={{
+            backgroundColor: "rgba(169, 169, 169, 0.3)",
+            padding: "8px",
+            borderRadius: "10px",
+            width: "auto",
+            resize: "none",
+          }}
         ></textarea>
       </div>
-      <div>
+      <div style={profileDataStyle}>
         Contacts:
         {Object.keys(profile.contacts).map((key) => {
           return (
@@ -101,6 +149,12 @@ function ProfileDataForm({ profile, deactivateEditMode }) {
                 placeholder={key}
                 value={formValues.contacts[key]}
                 onChange={(event) => handleValues(key, event.target.value)}
+                style={{
+                  backgroundColor: "rgba(169, 169, 169, 0.3)",
+                  padding: "8px",
+                  borderRadius: "10px",
+                  width: "auto",
+                }}
               />
             </div>
           );

@@ -1,10 +1,5 @@
-import { profileAPI } from "../api/profile-api.ts";
-import {
-  postType,
-  profileType,
-  contactsType,
-  photoType,
-} from "../types/types.ts";
+import { profileAPI } from "../api/profile-api";
+import { postType, profileType } from "../types/types.ts";
 import { BaseThunkType, InferActionsTypes } from "./redux-store.ts";
 
 const ADD_POST = "ADD-POST";
@@ -13,6 +8,7 @@ const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const UPDATE_IMAGE = "UPDATE_IMAGE";
+const EDIT_POST = "EDIT_POST";
 
 let initialState = {
   posts: [
@@ -47,10 +43,10 @@ const profileReducer = (
     }
 
     case DELETE_POST:
-      const updatedPosts = state.posts.filter((p) => p.id !== action.postId);
+      const deletePost = state.posts.filter((p) => p.id !== action.postId);
       return {
         ...state,
-        posts: updatedPosts,
+        posts: deletePost,
       };
 
     case UPDATE_NEW_POST_TEXT:
@@ -78,6 +74,17 @@ const profileReducer = (
             large: action.URLphoto,
           },
         } as profileType,
+      };
+
+    case EDIT_POST:
+      const updatedPosts = state.posts.map((post) =>
+        post.id === action.postId
+          ? { ...post, message: action.updatedMessage }
+          : post
+      );
+      return {
+        ...state,
+        posts: updatedPosts,
       };
 
     default:
@@ -115,6 +122,12 @@ export const actions = {
     ({
       type: UPDATE_NEW_POST_TEXT,
       newText: text,
+    } as const),
+  editPostActionCreator: (postId: number, updatedMessage: string) =>
+    ({
+      type: EDIT_POST,
+      postId,
+      updatedMessage,
     } as const),
 };
 

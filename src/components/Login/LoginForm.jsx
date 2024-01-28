@@ -1,39 +1,31 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../redux/authReducer.ts";
 
-type LoginFormProps = {
-  login: (
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captha: string
-  ) => void;
-  errorMessage: string | null;
-  capthaUrl: string | null;
-};
-
-const LoginForm: React.FC<LoginFormProps> = ({
-  login,
-  errorMessage,
-  capthaUrl,
-}) => {
+const LoginForm = () => {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
     rememberMe: false,
     captha: "",
   });
+  const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.auth.errorMessage);
+  const capthaUrl = useSelector((state) => state.auth.capthaUrl);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    login(
-      formValues.email,
-      formValues.password,
-      formValues.rememberMe,
-      formValues.captha
+    dispatch(
+      login(
+        formValues.email,
+        formValues.password,
+        formValues.rememberMe,
+        formValues.captha
+      )
     );
   };
 
-  const handleValues = (identifier: string, value: string | boolean) => {
+  const handleValues = (identifier, value) => {
     setFormValues((prevValues) => ({
       ...prevValues,
       [identifier]: value,

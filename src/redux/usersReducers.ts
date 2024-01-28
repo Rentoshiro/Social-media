@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { usersAPI } from "../api/user-api.ts";
+import { usersAPI } from "../api/user-api";
 import { userType } from "../types/types.ts";
 import { AppStateType, BaseThunkType } from "./redux-store.ts";
 import { ThunkAction } from "redux-thunk";

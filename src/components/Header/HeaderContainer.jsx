@@ -1,17 +1,9 @@
 import { connect } from "react-redux";
-import Header from "./Header.tsx";
+import Header from "./Header";
 import React, { useEffect } from "react";
 import { loginUser, logout } from "../../redux/authReducer.ts";
-import { AppStateType } from "../../redux/redux-store.ts";
 
-type HeaderContainerProps = {
-  isAuth: boolean;
-  login: string | null;
-  loginUser: () => void;
-  logout: () => void;
-};
-
-const HeaderContainer: React.FC<HeaderContainerProps> = (props) => {
+const HeaderContainer = (props) => {
   useEffect(() => {
     props.loginUser();
   }, [props.isAuth]);
@@ -19,10 +11,11 @@ const HeaderContainer: React.FC<HeaderContainerProps> = (props) => {
   return <Header {...props} />;
 };
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
     login: state.auth.login,
+    photo: state.profilePage.profile,
   };
 };
 
