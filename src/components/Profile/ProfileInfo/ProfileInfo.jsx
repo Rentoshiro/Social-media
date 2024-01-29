@@ -1,14 +1,11 @@
 import React, { useRef, useState } from "react";
 import backgroung from "../../../images/backgroungjpn.jpg";
-import classes from "../ProfileInfo/ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
 import ProfileData from "./ProfileData";
 import ProfileDataForm from "./ProfileDataForm";
 import { useDispatch, useSelector } from "react-redux";
 import { updateImage } from "../../../redux/profileReducer.ts";
 import MyPostsContainer from "../MyPosts/MyPostsContainer.jsx";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Button from "@mui/material/Button";
 
 function ProfileInfo({ isOwner }) {
   const fileInputRef = useRef(null);
@@ -52,7 +49,7 @@ function ProfileInfo({ isOwner }) {
           style={{ width: "100%", height: "300px" }}
         />
       </div>
-      <div className={classes.descriptionBlock}>
+      <div style={{ padding: "10px" }}>
         <div
           style={{
             position: "relative",

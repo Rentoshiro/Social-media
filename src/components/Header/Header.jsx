@@ -2,16 +2,13 @@ import React from "react";
 import { Box, AppBar, Toolbar, Button } from "@mui/material";
 import logo from "../../images/SamuraiLogo.jpeg";
 import { NavLink } from "react-router-dom";
+import icon from "../../images/icon.jpeg";
 
 const Header = (props) => {
   const handleLogout = (event) => {
     event.preventDefault();
     props.logout();
   };
-
-  if (!props.photo) {
-    return <div></div>;
-  }
 
   return (
     <AppBar position="static">
@@ -27,9 +24,9 @@ const Header = (props) => {
                 <div>
                   <img
                     src={
-                      props.photo.photos.large
+                      props.photo && props.photo.photos.large
                         ? props.photo.photos.large
-                        : "https://i.pinimg.com/originals/87/99/c2/8799c23bb7a1629ef923bfb52faf6d56.jpg "
+                        : icon
                     }
                     alt="profile"
                     style={{
@@ -47,7 +44,7 @@ const Header = (props) => {
             </>
           ) : (
             <NavLink to={"/login"} variant="contained">
-              Login
+              <Button variant="text">Login</Button>
             </NavLink>
           )}
         </div>

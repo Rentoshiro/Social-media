@@ -28,7 +28,14 @@ export default function BasicPagination() {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Stack spacing={2}>
         <Pagination
           onChange={handleChangePage}

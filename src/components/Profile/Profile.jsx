@@ -15,13 +15,10 @@ function Profile() {
     dispatch(showProfile(userId || userProfile));
     dispatch(getStatus(userId || userProfile));
   }, [userId, userProfile]);
+  //din cauza asta nu dispare header
 
   return (
-    <div
-      style={{
-        border: "13px solid white",
-      }}
-    >
+    <div>
       <ProfileInfo isOwner={!userId}></ProfileInfo>
     </div>
   );

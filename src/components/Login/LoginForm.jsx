@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../redux/authReducer.ts";
+import { Button } from "@mui/material";
 
 const LoginForm = () => {
   const [formValues, setFormValues] = useState({
@@ -43,6 +44,12 @@ const LoginForm = () => {
             name="email"
             placeholder="Email"
             onChange={(event) => handleValues("email", event.target.value)}
+            style={{
+              backgroundColor: "rgba(169, 169, 169, 0.3)",
+              padding: "8px",
+              borderRadius: "10px",
+              width: "auto",
+            }}
           />
         </div>
         <div>
@@ -53,6 +60,12 @@ const LoginForm = () => {
             name="password"
             placeholder="Password"
             onChange={(event) => handleValues("password", event.target.value)}
+            style={{
+              backgroundColor: "rgba(169, 169, 169, 0.3)",
+              padding: "8px",
+              borderRadius: "10px",
+              width: "auto",
+            }}
           />
         </div>
         <div>
@@ -67,7 +80,7 @@ const LoginForm = () => {
           />
           <label htmlFor="rememberMe">Remember me</label>
         </div>
-        {errorMessage && <div>{errorMessage}</div>}
+        {errorMessage && <div style={{ color: "#A81E1E" }}>{errorMessage}</div>}
         <div>{capthaUrl && <img src={capthaUrl} alt="Captcha" />}</div>
         <div>
           {capthaUrl && (
@@ -76,11 +89,19 @@ const LoginForm = () => {
               type="text"
               name="captha"
               onChange={(event) => handleValues("captha", event.target.value)}
+              style={{
+                backgroundColor: "rgba(169, 169, 169, 0.3)",
+                padding: "8px",
+                borderRadius: "10px",
+                width: "auto",
+              }}
             />
           )}
         </div>
         <div>
-          <button type="submit">Login</button>
+          <Button type="submit" variant="contained">
+            Login
+          </Button>
         </div>
       </form>
     </>

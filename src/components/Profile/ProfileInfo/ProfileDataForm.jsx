@@ -98,10 +98,7 @@ function ProfileDataForm({ profile, deactivateEditMode }) {
           />
         </div>
         <div>
-          {" "}
-          <span style={{ fontWeight: "bold" }}>
-            My professional skills:
-          </span>{" "}
+          <span style={{ fontWeight: "bold" }}>My professional skills:</span>{" "}
           {profile.lookingForAJobDescription}
         </div>
         <textarea
@@ -120,7 +117,6 @@ function ProfileDataForm({ profile, deactivateEditMode }) {
           }}
         ></textarea>
         <div>
-          {" "}
           <span style={{ fontWeight: "bold" }}>About me: </span>{" "}
           {profile.aboutMe}
         </div>

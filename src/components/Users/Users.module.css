@@ -1,0 +1,32 @@
+.userCard {
+  width: 200px;
+  height: 250px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 28px;
+  margin-right: 28px;
+}
+
+.roundUserPhoto {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.userInfo {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.userName {
+  font-weight: bold;
+}
+
+.userActions {
+  margin-top: auto;
+}

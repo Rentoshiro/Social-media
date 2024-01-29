@@ -3,16 +3,15 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music.jsx";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersAPIComponent";
+import UsersContainer from "./components/Users/UsersContainer.jsx";
 import ProfileContainer from "./components/Profile/ProfileContainer.jsx";
-import HeaderContainer from "./components/Header/HeaderContainer";
+import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import LoginContainer from "./components/Login/Login.jsx";
 import { initializedApp } from "./redux/appReducer.ts";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { withAuthRedirect } from "./hoc/AuthRedirect.jsx";
 
 import Grid from "@mui/material/Unstable_Grid2";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -56,11 +55,21 @@ const App = (props) => {
               </Item>
             </Grid>
             <Grid item xs={3}>
-              <Item>
-                <Navbar />
-              </Item>
+              {props.isAuth ? (
+                <Item>
+                  <Navbar />
+                </Item>
+              ) : (
+                ""
+              )}
             </Grid>
-            <Grid item xs={9}>
+            <Grid
+              item
+              xs={props.isAuth ? 9 : 12}
+              style={{
+                border: "13px solid white",
+              }}
+            >
               <Item>
                 <Routes>
                   <Route
@@ -90,6 +99,7 @@ const App = (props) => {
 const mapStateToProps = (state) => {
   return {
     initialized: state.initializedApp.initialized,
+    isAuth: state.auth.isAuth,
   };
 };
 

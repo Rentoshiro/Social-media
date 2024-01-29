@@ -7,6 +7,7 @@ import { compose } from "redux";
 const mapStateToProps = (state) => {
   return {
     messagesData: state.messagesData,
+    profileId: state.auth.userId,
   };
 };
 

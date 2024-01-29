@@ -11,7 +11,15 @@ function Login() {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "80vh",
+      }}
+    >
       <h1>Login</h1>
       <LoginForm />
     </div>

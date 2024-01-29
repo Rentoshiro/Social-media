@@ -57,7 +57,7 @@ function Navbar() {
           sx={getButtonStyle(1)}
           variant="contained"
         >
-          Messages
+          Chat
         </Button>
       </Box>
       <Box>

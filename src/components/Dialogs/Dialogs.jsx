@@ -1,10 +1,9 @@
 import React, { useRef, ChangeEvent, useEffect } from "react";
-import classes from "./Dialogs.module.css";
 import Message from "./Message";
 import AddMessageForm from "./AddMessageForm.jsx";
 import { useState } from "react";
 
-const Dialogs = ({ sendMessage }) => {
+const Dialogs = ({ sendMessage, profileId }) => {
   const [messages, setMessages] = useState([]);
   const [readyStatus, setReadyStatus] = useState();
   const messagesContainerRef = useRef(null);
@@ -49,7 +48,7 @@ const Dialogs = ({ sendMessage }) => {
     <>
       <div
         style={{
-          height: "82vh",
+          height: "78vh",
           overflow: "auto",
           scrollBehavior: "smooth",
         }}
@@ -57,7 +56,13 @@ const Dialogs = ({ sendMessage }) => {
       >
         {messages &&
           messages.map((m) => (
-            <Message url={m.photo} author={m.userName} text={m.message} />
+            <Message
+              url={m.photo}
+              author={m.userName}
+              text={m.message}
+              userId={m.userId}
+              profileId={profileId}
+            />
           ))}
       </div>
       <div>
