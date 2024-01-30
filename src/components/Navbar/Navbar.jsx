@@ -70,7 +70,7 @@ function Navbar() {
           Users
         </Button>
       </Box>
-      <Box>
+      {/* <Box>
         <Button
           component={NavLink}
           to="/news"
@@ -79,7 +79,7 @@ function Navbar() {
         >
           News
         </Button>
-      </Box>
+      </Box> */}
       {/* <Box>
         <Button
           component={NavLink}

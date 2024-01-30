@@ -21,15 +21,14 @@ function NewsContainer() {
   }, []);
 
   return (
-    <div>
-      {newsData ? (
+    <>
+      {newsData &&
         newsData.articles.map((article, index) => (
-          <News article={article} index={index}></News>
-        ))
-      ) : (
-        <p>Loading news...</p>
-      )}
-    </div>
+          <div key={index}>
+            <News article={article} index={index} />
+          </div>
+        ))}
+    </>
   );
 }
 
