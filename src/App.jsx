@@ -11,7 +11,7 @@ import { initializedApp } from "./redux/appReducer.ts";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Grid from "@mui/material/Unstable_Grid2";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -42,7 +42,7 @@ const App = (props) => {
 
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Box sx={{ width: "100%" }}>
           <Grid
             container
@@ -91,7 +91,7 @@ const App = (props) => {
             </Grid>
           </Grid>
         </Box>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };
