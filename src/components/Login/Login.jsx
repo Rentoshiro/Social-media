@@ -22,6 +22,11 @@ function Login() {
     >
       <h1>Login</h1>
       <LoginForm />
+      <div>
+        <h3>Free account:</h3>
+        <p>Email: gtsu380@gmail.com</p>
+        <p>Password: free</p>
+      </div>
     </div>
   );
 }

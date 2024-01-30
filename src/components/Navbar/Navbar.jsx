@@ -80,7 +80,7 @@ function Navbar() {
           News
         </Button>
       </Box>
-      <Box>
+      {/* <Box>
         <Button
           component={NavLink}
           to="/music"
@@ -99,7 +99,7 @@ function Navbar() {
         >
           Settings
         </Button>
-      </Box>
+      </Box> */}
     </nav>
   );
 }

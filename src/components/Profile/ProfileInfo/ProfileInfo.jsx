@@ -6,6 +6,7 @@ import ProfileDataForm from "./ProfileDataForm";
 import { useDispatch, useSelector } from "react-redux";
 import { updateImage } from "../../../redux/profileReducer.ts";
 import MyPostsContainer from "../MyPosts/MyPostsContainer.jsx";
+import icon from "../../../images/icon.jpeg";
 
 function ProfileInfo({ isOwner }) {
   const fileInputRef = useRef(null);
@@ -62,11 +63,7 @@ function ProfileInfo({ isOwner }) {
           }}
         >
           <img
-            src={
-              profile.photos.large
-                ? profile.photos.large
-                : "https://i.pinimg.com/originals/87/99/c2/8799c23bb7a1629ef923bfb52faf6d56.jpg"
-            }
+            src={profile.photos.large ? profile.photos.large : icon}
             alt="profile"
             style={{ width: "100%", height: "auto", borderRadius: "50%" }}
           />
