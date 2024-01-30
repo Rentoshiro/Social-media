@@ -14,6 +14,7 @@ function Message({ url, author, text, userId, profileId }) {
           borderRadius: "30px",
           marginBottom: "15px",
           marginLeft: userId === profileId ? "auto" : "0",
+          flexDirection: userId === profileId ? "row-reverse" : "row",
         }}
       >
         {url ? (
@@ -39,7 +40,13 @@ function Message({ url, author, text, userId, profileId }) {
             alt="Default Icon"
           />
         )}
-        <div style={{ flex: "1" }}>
+        <div
+          style={{
+            flex: "1",
+            textAlign: userId === profileId ? "right" : "left",
+            marginRight: "10px",
+          }}
+        >
           <div>{author}</div>
           <div>{text}</div>
         </div>
