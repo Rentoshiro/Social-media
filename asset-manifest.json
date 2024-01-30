@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/social-media/static/css/main.45f20db6.css",
-    "main.js": "/social-media/static/js/main.a2ae675d.js",
+    "main.css": "/social-media/static/css/main.d03d9af0.css",
+    "main.js": "/social-media/static/js/main.5b9a8ed3.js",
     "static/media/backgroungjpn.jpg": "/social-media/static/media/backgroungjpn.78bc8375b355263d63e2.jpg",
     "static/media/icon.jpeg": "/social-media/static/media/icon.8d2bf08e4bd60caccdcb.jpeg",
     "static/media/SamuraiLogo.jpeg": "/social-media/static/media/SamuraiLogo.6534f9a75dcedf04b26c.jpeg",
     "index.html": "/social-media/index.html",
-    "main.45f20db6.css.map": "/social-media/static/css/main.45f20db6.css.map",
-    "main.a2ae675d.js.map": "/social-media/static/js/main.a2ae675d.js.map"
+    "main.d03d9af0.css.map": "/social-media/static/css/main.d03d9af0.css.map",
+    "main.5b9a8ed3.js.map": "/social-media/static/js/main.5b9a8ed3.js.map"
   },
   "entrypoints": [
-    "static/css/main.45f20db6.css",
-    "static/js/main.a2ae675d.js"
+    "static/css/main.d03d9af0.css",
+    "static/js/main.5b9a8ed3.js"
   ]
 }
